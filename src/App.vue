@@ -1,28 +1,20 @@
 <script setup>
-import { caseListsStore } from './stores/caseLists'
-import { onMounted } from 'vue'
-const caseStore = caseListsStore()
-onMounted(() => {
-  console.log(caseStore.lists)
-})
+import { useRouter } from "vue-router";
+const router = useRouter()
+const handleClick = () => {
+  router.push({ path: "/" });
+};
 </script>
-
 <template>
   <el-container class="mainWrapper">
-    <el-header class="titleWrapper">
-      <h2>这是一个标题</h2>
+    <el-header>
+      <div class="titleWrapper">
+        <el-button class="backRouter" @click="handleClick" type="primary">返回</el-button>
+        <h2>这是一个标题</h2>
+      </div>
     </el-header>
     <el-main>
-      <el-scrollbar class="scrollerWrapper">
-        <div class="contentWrapper">
-          <el-card class="itemCard" shadow="hover"  v-for="item in caseStore.lists" :key="item.path">
-            <div class="imgWrapper"></div>
-            <template #footer>
-              <div class="itemBabel">{{ item.babelName }}</div>
-            </template>
-          </el-card>
-        </div>
-      </el-scrollbar>
+      <router-view />
     </el-main>
   </el-container>
 </template>
@@ -34,27 +26,13 @@ onMounted(() => {
   .titleWrapper {
     display: flex;
     justify-content: center;
+    align-content: center;
   }
-  .contentWrapper {
-    display: grid;
-    padding: 0 40px;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-  }
-  .scrollerWrapper {
-    height: 100%;
-  }
-
-  .itemCard {
-    cursor: pointer;
-    .imgWrapper {
-      width: 200px;
-      height: 200px;
-    }
-    .itemBabel {
-      display: flex;
-      justify-content: center;
-    }
+  .backRouter{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 100;
   }
 }
 </style>
