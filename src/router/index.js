@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
 
 export const routes = [
   { babelName: '', ishidden: true, path: '/', component: () => import('../views/home/index.vue') },
@@ -6,7 +6,7 @@ export const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 
