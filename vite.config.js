@@ -8,5 +8,5 @@ export default defineConfig({
     vue(),
     glsl()
   ],
-  assetsInclude: ['**/*.hdr', '**/*.jpg', '**/*.glb', '**/*.gltf'],
+  assetsInclude: ['**/*.hdr', '**/*.jpg','**/*.gif', '**/*.glb', '**/*.gltf'],
 })

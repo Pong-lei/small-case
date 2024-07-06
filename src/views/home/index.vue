@@ -3,7 +3,9 @@
     <div class="contentWrapper">
       <template v-for="item in caseStore.lists" :key="item.path">
         <el-card v-if="!item.ishidden" @click="handleClick(item)" class="itemCard" shadow="hover">
-          <div class="imgWrapper"></div>
+          <div class="imgWrapper">
+            <el-image  :src="item.img" :fit="fit" />
+          </div>
           <template #footer>
             <div class="itemBabel">{{ item.babelName }}</div>
           </template>
@@ -35,6 +37,9 @@ onMounted(()=>{
   padding: 0 40px;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+  :deep(.el-card__body){
+    padding: 0;
+  }
 }
 .scrollerWrapper {
   height: 100%;
@@ -45,7 +50,7 @@ onMounted(()=>{
   cursor: pointer;
   .imgWrapper {
     width: 200px;
-    height: 200px;
+    height: 112px;
   }
   .itemBabel {
     display: flex;

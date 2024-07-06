@@ -8,7 +8,7 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
-import { onMounted } from 'vue'
+import { onMounted ,onUnmounted} from 'vue'
 
 import bar from './model/bar.glb'
 import aoMap from './model/texture/aoMap.png'
@@ -147,7 +147,7 @@ let planeM = new THREE.MeshPhysicalMaterial({
 planeM.needsUpdate = true
 let planeMesh = new THREE.Mesh(plane, planeM)
 planeMesh.position.set(0, 200, 0)
-scene.add(planeMesh)
+// scene.add(planeMesh)
 
 const light = new THREE.AmbientLight(0xffffff, 2) // 柔和的白光
 scene.add(light)
@@ -210,15 +210,15 @@ loader.load(bar, (gltf) => {
       `
         #include <begin_vertex>
         vUv = instanceUV;
-        float n = cnoise(vec3(instanceUV.x*5.,instanceUV.y*5.,time*0.2));
+        float n = cnoise(vec3(instanceUV.x*2.,instanceUV.y*2.,time*0.1));
         transformed.y+=n*90.;
 
         vHeightUV = clamp(position.y*2.,0.,1.);
         vec4 transition = texture2D(uFBO,instanceUV);
         // 控制顶点位置，间接控制大小
         transformed *= (transition.g);
-        transformed.y+=transition.r*100.;
-        vHeight = transformed.y;
+        transformed.y+=transition.r*300.;
+        vHeight = transformed.y*3.;
         `
     )
 
@@ -244,7 +244,7 @@ loader.load(bar, (gltf) => {
         vec3 highlight = mix(ramp_color_three,ramp_color_four,vHeightUV);
         diffuseColor.rgb = ramp_color_two;
         diffuseColor.rgb = mix(diffuseColor.rgb,ramp_color_three,vHeightUV);
-        diffuseColor.rgb = mix(diffuseColor.rgb,highlight,clamp(vHeight/10. - 3. ,0.,1.));
+        diffuseColor.rgb = mix(diffuseColor.rgb,highlight,clamp(vHeight/2.-3.  ,0.,1.));
         // diffuseColor.rgb = highlight;
         `
     )
@@ -325,6 +325,9 @@ onMounted(() => {
   const container = document.querySelector('#container')
   container.appendChild(renderer.domElement)
   animate()
+})
+onUnmounted(()=>{
+  gui.destroy()
 })
 </script>
 
