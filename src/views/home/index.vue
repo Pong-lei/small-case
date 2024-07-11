@@ -4,7 +4,7 @@
       <template v-for="item in caseStore.lists" :key="item.path">
         <el-card v-if="!item.ishidden" @click="handleClick(item)" class="itemCard" shadow="hover">
           <div class="imgWrapper">
-            <el-image  :src="item.img" :fit="fit" />
+            <el-image  :src="item.img" :fit="scale-down" />
           </div>
           <template #footer>
             <div class="itemBabel">{{ item.babelName }}</div>
@@ -49,8 +49,7 @@ onMounted(()=>{
   min-width: 200px;
   cursor: pointer;
   .imgWrapper {
-    width: 200px;
-    height: 112px;
+    height: 197px;
   }
   .itemBabel {
     display: flex;
