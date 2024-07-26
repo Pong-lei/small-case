@@ -6,7 +6,7 @@ import glsl from 'vite-plugin-glsl'
 export default defineConfig({
   plugins: [
     vue(),
-    glsl()
+    glsl(),
   ],
   assetsInclude: ['**/*.hdr', '**/*.jpg','**/*.gif', '**/*.glb', '**/*.gltf'],
 })
